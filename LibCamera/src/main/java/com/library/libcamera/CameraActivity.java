@@ -39,10 +39,9 @@ public class CameraActivity extends AppCompatActivity {
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA"};
     private ProcessCameraProvider cameraProvider;
-    private int lensFacing= CameraSelector.LENS_FACING_BACK;
-
-    PreviewView mPreviewView;
-    RelativeLayout captureImage;
+    private int lensFacing = CameraSelector.LENS_FACING_BACK;
+    private PreviewView mPreviewView;
+    private RelativeLayout captureImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,16 +68,16 @@ public class CameraActivity extends AppCompatActivity {
                 cameraProvider = cameraProviderFuture.get();
                 int cameraFacing = getIntent().getIntExtra("isFrontCamera", 0);
                 String instruction = getIntent().getStringExtra("instruction");
-                TextView tvInstruction= findViewById(R.id.tvInstruction);
+                TextView tvInstruction = findViewById(R.id.tvInstruction);
                 tvInstruction.setText(instruction);
                 ImageView bgOverlay = findViewById(R.id.bgOverlay);
-                if(cameraFacing==0 && hasBackCamera()){
+                if (cameraFacing == 0 && hasBackCamera()) {
                     lensFacing = CameraSelector.LENS_FACING_BACK;
                     bgOverlay.setBackgroundResource(R.drawable.overlay_identity_card);
-                }else if(cameraFacing==1 && hasFrontCamera()){
-                    lensFacing= CameraSelector.LENS_FACING_FRONT;
+                } else if (cameraFacing == 1 && hasFrontCamera()) {
+                    lensFacing = CameraSelector.LENS_FACING_FRONT;
                     bgOverlay.setBackgroundResource(R.drawable.overlay_selfie_with_id);
-                }else{
+                } else {
                     throw new IllegalStateException("Back and front camera are unavailable");
                 }
                 bindPreview(cameraProvider);
@@ -172,9 +171,7 @@ public class CameraActivity extends AppCompatActivity {
     /**
      * Returns true if the device has an available front camera. False otherwise
      */
-    private boolean hasFrontCamera()
-
-    {
+    private boolean hasFrontCamera() {
         try {
             return cameraProvider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA);
         } catch (CameraInfoUnavailableException e) {
