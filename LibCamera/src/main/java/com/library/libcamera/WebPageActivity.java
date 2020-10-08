@@ -3,7 +3,6 @@ package com.library.libcamera;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -38,7 +37,6 @@ public class WebPageActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200) {
             if (resultCode == Activity.RESULT_OK) {
-                Log.d("data masuk", CacheImage.getCacheImage(this));
                 wvWeb.evaluateJavascript(
                         "javascript: " + "updateFromNative(\"" + CacheImage.getCacheImage(this) + "\")",
                         null
