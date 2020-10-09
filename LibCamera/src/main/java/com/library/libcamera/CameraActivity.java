@@ -103,7 +103,7 @@ public class CameraActivity extends AppCompatActivity {
         ImageCapture.Builder builder = new ImageCapture.Builder();
 
         final ImageCapture imageCapture = builder
-                .setTargetRotation(this.getDisplay().getRotation())
+                .setTargetRotation(this.getWindowManager().getDefaultDisplay().getRotation())
                 .build();
         cameraProvider.unbindAll();
         preview.setSurfaceProvider(mPreviewView.getSurfaceProvider());
