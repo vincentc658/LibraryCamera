@@ -56,7 +56,8 @@ public class WebPageActivity extends AppCompatActivity {
         wvWeb.getSettings().setDatabaseEnabled(true);
         wvWeb.getSettings().setDomStorageEnabled(true);
         wvWeb.addJavascriptInterface(new WebVCamBridgeInterface(), "Android");
-        wvWeb.loadUrl("http://35.202.109.216/camera");
+//        wvWeb.loadUrl("http://35.202.109.216/camera");
+        wvWeb.loadUrl("http://sitapi.p2hdevworks.com:8890/");
     }
     class WebVCamBridgeInterface{
         @JavascriptInterface
