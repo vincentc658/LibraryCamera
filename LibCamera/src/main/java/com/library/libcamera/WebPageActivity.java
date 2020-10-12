@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 public class WebPageActivity extends AppCompatActivity {
     private WebView wvWeb;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class WebPageActivity extends AppCompatActivity {
         }
     }
 
-    private void initialize(){
+    private void initialize() {
         wvWeb.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         wvWeb.getSettings().setJavaScriptEnabled(true);
         wvWeb.getSettings().setAllowFileAccess(true);
@@ -56,20 +57,25 @@ public class WebPageActivity extends AppCompatActivity {
         wvWeb.getSettings().setDatabaseEnabled(true);
         wvWeb.getSettings().setDomStorageEnabled(true);
         wvWeb.addJavascriptInterface(new WebVCamBridgeInterface(), "Android");
-//        wvWeb.loadUrl("http://35.202.109.216/camera");
-        wvWeb.loadUrl("http://sitapi.p2hdevworks.com:8890/");
+        String url = getIntent().getStringExtra("url");
+        if (url == null || url.isEmpty()) {
+            wvWeb.loadUrl("http://35.202.109.216/camera");
+            return;
+        }
+        wvWeb.loadUrl(url);
     }
-    class WebVCamBridgeInterface{
+
+    class WebVCamBridgeInterface {
         @JavascriptInterface
-       public void showAndroidCamera(String jsonString){
-            String afterReplace = jsonString.replace("\\","");
-            String finalJsonString = afterReplace.substring(1, afterReplace.length()-1);
+        public void showAndroidCamera(String jsonString) {
+            String afterReplace = jsonString.replace("\\", "");
+            String finalJsonString = afterReplace.substring(1, afterReplace.length() - 1);
             JSONObject jo = null;
             try {
                 jo = new JSONObject(finalJsonString);
                 int isFrontCamera = jo.getInt("isFrontCamera");
                 String instruction = jo.getString("title");
-                Intent intent = new Intent(WebPageActivity.this,CameraActivity.class);
+                Intent intent = new Intent(WebPageActivity.this, CameraActivity.class);
                 intent.putExtra("isFrontCamera", isFrontCamera);
                 intent.putExtra("instruction", instruction);
                 startActivityForResult(intent, 200);
