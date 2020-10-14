@@ -1,4 +1,4 @@
-package com.library.libcamera;
+package com.library.camera;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.webkit.WebView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.library.libcamera.CacheImage;
+import com.library.libcamera.CameraActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,8 +22,8 @@ public class WebPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.web_view_activity);
-        wvWeb = findViewById(R.id.wvWeb);
+        setContentView(com.library.libcamera.R.layout.web_view_activity);
+        wvWeb = findViewById(com.library.libcamera.R.id.wvWeb);
         initialize();
     }
 
@@ -47,19 +50,11 @@ public class WebPageActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        wvWeb.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         wvWeb.getSettings().setJavaScriptEnabled(true);
-        wvWeb.getSettings().setAllowFileAccess(true);
-        wvWeb.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-        wvWeb.getSettings().setUseWideViewPort(true);
-        wvWeb.getSettings().setGeolocationEnabled(true);
-        wvWeb.getSettings().setAppCacheEnabled(true);
-        wvWeb.getSettings().setDatabaseEnabled(true);
-        wvWeb.getSettings().setDomStorageEnabled(true);
         wvWeb.addJavascriptInterface(new WebVCamBridgeInterface(), "Android");
         String url = getIntent().getStringExtra("url");
         if (url == null || url.isEmpty()) {
-            wvWeb.loadUrl("http://35.202.109.216/camera");
+            wvWeb.loadUrl("https://p2h-android.web.app/");
             return;
         }
         wvWeb.loadUrl(url);

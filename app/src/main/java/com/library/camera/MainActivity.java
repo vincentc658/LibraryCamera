@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.library.libcamera.CameraActivity;
-import com.library.libcamera.WebPageActivity;
 
 public class MainActivity extends AppCompatActivity {
 
